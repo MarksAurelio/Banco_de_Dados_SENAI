@@ -203,7 +203,6 @@ id_estadio = 23
 where id_time = 13;
 
 update time set
-update time set
 nome_completo = 'Esporte Clube Vitória',
 nome = 'Vitória',
 sigla = 'VIT',
