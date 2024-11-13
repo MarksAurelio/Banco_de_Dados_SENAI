@@ -22,7 +22,7 @@ select * from estadio where capacidade < 60000 and capacidade > 50000;
 
 select * from estadio where not (capacidade > 50000 and capacidade < 60000);
 
-select * from estadio where nome like '%Arena%';
+select * from estadio where nome like '%Arena';
 
 select * from estadio where nome like '%o' or nome like '%a';
 
