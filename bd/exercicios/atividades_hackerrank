@@ -24,6 +24,24 @@ select name from city where countrycode = 'USA' and population > 120000;
 
 https://www.hackerrank.com/challenges/weather-observation-station-6/problem?isFullScreen=true
 
+select distinct city from station where
+city like 'a%' or
+city like 'e%' or
+city like 'i%' or
+city like 'o%' or
+city like 'u%';
+
+https://www.hackerrank.com/challenges/weather-observation-station-7/problem?isFullScreen=true
+
+elect distinct city from station where
+city like '%a' or
+city like '%s' or
+city like '%i' or
+city like '%o' or
+city like '%u';
+
+https://www.hackerrank.com/challenges/weather-observation-station-8/problem?isFullScreen=true
+
 select city from station 
 where city like 'a%'
 or city like 'e%'
@@ -35,7 +53,3 @@ or city like 'E%'
 or city like 'I%'
 or city like 'O%'
 or city like 'U%';
-
-https://www.hackerrank.com/challenges/weather-observation-station-7/problem?isFullScreen=true
-
-https://www.hackerrank.com/challenges/weather-observation-station-8/problem?isFullScreen=true
