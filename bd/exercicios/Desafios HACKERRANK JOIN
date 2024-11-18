@@ -6,7 +6,7 @@ Nota: CITY.CountryCode e COUNTRY.Code são colunas-chave correspondentes.
 */
 
 select city.name from city
-inner join country on city.countrycode = country.code
+inner join on country countrycode = code
 where continent = 'Africa'
 
 /*
@@ -16,7 +16,7 @@ Nota: CITY.CountryCode e COUNTRY.Code são colunas-chave correspondentes.
 */
 
 select sum(city.population) from city
-inner join country on city.countrycode = country.code 
+inner join country on countrycode = code 
 where continent = 'Asia'
 
 /*
