@@ -2,79 +2,31 @@
 
 /*1. Quais os países cadastrados?*/
 select pais from pais;
-Afghanistan
-Algeria
-American Samoa
-Angola
-Anguilla
-Argentina
-Armenia
-Australia
-Austria
-Azerbaijan
-Bahrain
-Bangladesh
-Belarus
-Bolivia
-Brazil
-Brunei
-Bulgaria
-Cambodia
-Cameroon
-Canada
-Chad
-Chile
-China
-Colombia
-Congo, The Democratic Republic of the
-Czech Republic
-Dominican Republic
-Ecuador
-Egypt
-Estonia
-Ethiopia
-Faroe Islands
-Finland
-France
-French Guiana
-French Polynesia
-Gambia
-Germany
-Greece
-Greenland
-Holy See (Vatican City State)
-Hong Kong
-Hungary
-India
-Indonesia
-Iran
-Iraq
-Israel
-Italy
-Japan
-
 /*2. Quantos países estão cadastrados?*/
-109
-
+select count(pais) from pais;
 /*3. Quantos países que terminam com a letra "A" estão cadastrados?*/
-40
-
+ select count(pais) from pais where pais like '%A';
 /*4. Listar, sem repetição, os anos que houveram lançamento de filme.*/
-
+select distinct ano_de_lancamento from filme;
 /*5. Alterar o ano de lançamento igual 2007 para filmes que iniciem com a Letra "B".*/
-
+update filme set ano_de_lancamento = 2007 where titulo like 'b%';
 /*6. Listar os filmes que possuem duração do filme maior que 100 e classificação igual a "G". */
-
+select titutlo from filme  where duracao_filme > 100 and classificacao = 'G';							
 /*7. Alterar o ano de lançamento igual 2008 para filmes que possuem duração da locação menor que 4 e classificação igual a "PG". */
-
+update filme set ano_de_lancamento = 2000 where duracao_da_locacao < 4 and classificacao = 'PG';
 /*8. Listar a quantidade de filmes que estejam classificados como "PG-13" e preço da locação maior que 2.40.*/
-
+select count(*) from filme where classificacao = 'PG-13' and preco_da_locacao > 2.40;
 /*9. Quais os idiomas que possuem filmes cadastrados? */
-
+select titulo, nome from filme
+inner join idioma on filme.idioma_id = idioma.idioma_id;
 /*10. Alterar o idioma para "GERMAN" dos filmes que possuem preço da locação maior que 4.*/
-
+update filme set
+idioma_id = (select idioma_id from idioma where nome = 'german')
+where preco_da_locacao > 4;
 /*11. Alterar o idioma para "JAPANESE" dos filmes que possuem preço da locação igual 0.99.*/
-
+update filme set
+idioma_id = (select idioma_id from idioma where nome = 'japanese')
+where preco_da_locacao = 0.99;
 /*12. Listar a quantidade de filmes por classificação.*/
 
 /*13. Listar, sem repetição, os preços de locação dos filmes cadastrados.*/
@@ -82,6 +34,7 @@ Japan
 /*14. Listar a quantidade de filmes por preço da locação.*/
 
 /*15. Listar os precos da locação que possuam mais de 340 filmes.*/
+select preco_da_locacao, count(*) as filmes from filme group by preco_da_locacao having filme > 340;
 
 /*16. Listar a quantidade de atores por filme ordenando por quantidade de atores crescente.*/
 
