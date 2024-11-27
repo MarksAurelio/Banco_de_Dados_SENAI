@@ -28,28 +28,46 @@ update filme set
 idioma_id = (select idioma_id from idioma where nome = 'japanese')
 where preco_da_locacao = 0.99;
 /*12. Listar a quantidade de filmes por classificação.*/
-
+select classificacao, count(*) from filme group by classificacao;
 /*13. Listar, sem repetição, os preços de locação dos filmes cadastrados.*/
-
+select distinct preco_da_locacao from filme;
 /*14. Listar a quantidade de filmes por preço da locação.*/
-
+select preco_da_locacao, count(*) from filme group by preco_da_locacao;
 /*15. Listar os precos da locação que possuam mais de 340 filmes.*/
 select preco_da_locacao, count(*) as filmes from filme group by preco_da_locacao having filme > 340;
-
 /*16. Listar a quantidade de atores por filme ordenando por quantidade de atores crescente.*/
-
+select titulo, count(*) from filme_ator
+inner join filme on filme.filme_id = filme_ator.filme_id
+group by titulo 
+order by 2 asc;
 /*17. Listar a quantidade de atores para os filmes que possuem mais de 5 atores ordenando por quantidade de atores decrescente.*/
-
+select f.titulo, count(fa.ator_id) as quantidade_de_ator from filme_ator fa
+inner join filme f on fa.filme_id = f.filme_id
+group by f.titulo
+having count(fa.ator_id) > 5
+order by 2 desc;
 /*18. Listar o título e a quantidade de atores para os filmes que possuem o idioma "JAPANESE" e mais de 10 atores ordenando por ordem alfabética de título e ordem crescente de quantidade de atores.*/
-
+select titulo, count(*) from filme f
+inner join filme_ator fa on f.filme_id = fa.filme_id
+inner join idioma i on f.idioma_id = i.idioma_id
+where i.nome = 'Japanese'
+group by titulo
+having count(*) > 10
+order by titulo asc, count(*) desc;
 /*19. Qual a maior duração da locação dentre os filmes?*/
-
+select max(duracao_da_locacao) from filme;
 /*20. Quantos filmes possuem a maior duração de locação?*/
-
+select count(*) qt from filme 
+where duracao_da_locacao in (select max(duracao_da_locacao) from filme);
 /*21. Quantos filmes do idioma "JAPANESE" ou "GERMAN" possuem a maior duração de locação?*/
-
+select count(*) qt from filme as f 
+inner join idioma as i on f.idioma_id = i.idioma_id 
+where lower(nome) in ('german', 'japanese')
+and duracao_da_locacao = (select max(duracao_da_locacao) from filme);
 /*22. Qual a quantidade de filmes por classificação e preço da locação?*/
-
+select classificacao, preco_da_locacao, count(*) as qt from filme 
+group by classificacao , preco_da_locacao
+order by classificacao , preco_da_locacao asc;
 /*23. Qual o maior tempo de duração de filme por categoria?*/
 
 /*24. Listar a quantidade de filmes por categoria.*/
