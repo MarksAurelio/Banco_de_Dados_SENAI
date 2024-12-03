@@ -3,7 +3,15 @@
 
 -- 1. String Functions
 -- ASCII(): Retorna o código ASCII do primeiro caractere.
+
+help ascii0;
+SELECT ASCII('2');
+SELECT ASCII(2);
+SELECT ASCII('dx');
+
 -- BIN(): Converte um número decimal para binário.
+SELECT BIM(10);
+
 -- CHAR_LENGTH() / LENGTH(): Retorna o tamanho de uma string (em caracteres ou bytes).
 -- CONCAT(): Concatena strings.
 -- CONCAT_WS(): Concatena strings com separador.
