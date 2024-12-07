@@ -75,13 +75,28 @@ inner join time as tv on id_visitante = tv.id_time
 where gol_mandante is null or rodada >=38
 order by id_partida;
 
-
 -- 03. Elabore um relatório por minuto e a quantidade de gols (não contar "Gol anulado (Var)")
 -- e ordene pela quantidade do maior para o menor
+select minuto, count(*) quantidade from evento
+where descricao like 'Gol%' and descricao not like '%Var%'
+-- descricao in ('Gol (Gol de campo)','Gol (Pênalti)','Gol (Gol Contra)')
+group by minuto
+order by quantidade desc;
 
 -- 04. Elabore um relatório por idade e quantidade de jogadores
+-- remover data nula e posições 'Auxiliar técnico e 'Técnico
+-- ordene pela idade do mais velho ao mais novo
+ 
+select timestampdiff(year, dt_nascimento, curdate()) as idade,
+count(*) as quantidade_jogadores
+from jogador
+where dt_nascimento is not null and posicao not in ('Auxiliar técnico', 'Técnico')
+group by idade
+order by idade desc;
 
 -- 05. Elabore um relatório por jogador e quantidade de cartões, 
 -- detalhar também a quantidade de Cartões Vermelho e Amarelo
--- ordene pela quantidade total de Cartões'use campeonatobrasileiro;
-
+-- ordene pela quantidade total de Cartões
+select 
+	id_jogador,
+    sum(if(descricao like '%Amarelo%', 1, 0))
