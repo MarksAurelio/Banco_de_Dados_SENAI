@@ -109,6 +109,7 @@ numero 	nome 			qt_amarelo 	qt_vermelho qt_total
 select 
 	id_jogador,
     sum(if(descricao like '%Amarelo%', 1, 0))
+    
 -- 06. Deseja-se saber qual a quantidade de jogos que aconteceram por dia
 /* exemplo:
 dia		quantidade
@@ -146,6 +147,23 @@ CAP		12				1				1
 CAM		16				1				3
 BAH		12				0				1
 BOT		10				2				1
-.
-.
+*/
+
+-- 09. Deseja-se saber a quantidade de jogador por faixa etária
+/*exemplo:
+faixa_etaria	qt
+Entre 30 e39	191
+Entre 20 e29	405
+Entre 10 e19	30
+Entre 40 e49	4
+*/
+
+-- 10. Deseja-se saber o total de gols em cada estádio
+/*exemplo:
+nome_estadio									quantidade
+Mineirão (Estádio Governador Magalhães Pinto)	87
+Morumbi (Estádio Cícero Pompeu de Toledo)		80
+Maracanã										77
+Neo Química Arena								48
+Estádio Alfredo Jaconi							48
 */
