@@ -87,7 +87,10 @@ order by quantidade desc;
 -- remover data nula e posições 'Auxiliar técnico e 'Técnico
 -- ordene pela idade do mais velho ao mais novo
  
-select timestampdiff(year, dt_nascimento, curdate()) as idade,
+select 
+-- timestampdiff(year, dt_nascimento, curdate()) as idade,
+-- 2024-year(dt_nascimento) idade,
+datediff(curdate(), dt_nascimento) div 365.25 idade,
 count(*) as quantidade_jogadores
 from jogador
 where dt_nascimento is not null and posicao not in ('Auxiliar técnico', 'Técnico')
@@ -106,9 +109,19 @@ numero 	nome 			qt_amarelo 	qt_vermelho qt_total
 .
 .
 */
+select
+tb.*,
+qt_amarelo + qt_vermelho qt_cartoes
+from (
 select 
-	id_jogador,
-    sum(if(descricao like '%Amarelo%', 1, 0))
+numero, 
+nome, 
+sum(if(descricao like '%amarelo%',1,0)) qt_amarelo,
+sum(if(descricao like '%vermelho%',1,0)) qt_vermelho
+from jogador as j
+inner join evento as e on j.id_jogador = e.id_jogador
+where descricao like 'cartão%'
+group by numero, nome) tb;
     
 -- 06. Deseja-se saber qual a quantidade de jogos que aconteceram por dia
 /* exemplo:
@@ -121,7 +134,8 @@ quinta	29
 segunda	11
 sexta	8
 */
-
+select * from partida
+;
 -- 07. Desejase saber a quantidade total de cada evento 
 -- e quantos aconteceram ate os 45min e depois dos 45min
 /*exemplo:
@@ -137,6 +151,11 @@ Cartão Vermelho (Segundo Cartão Amarelo)	44		7			37
 Gol (Pênalti)								71		37			34
 Gol (Gol Contra)							14		5			9
 */
+select descricao, count(*) as total,
+    sum(case when minuto <= 45 then 1 else 0 end) as ate_45,
+    sum(case when minuto > 45 then 1 else 0 end) as depois_45
+from evento
+group by descricao;
 
 -- 08. Deseja-se saber a quantidade dos eventos:
 -- "Bola na Trave", "Pênalti Perdido" , "Gol anulado (Var)" pelos clubes
@@ -148,6 +167,14 @@ CAM		16				1				3
 BAH		12				0				1
 BOT		10				2				1
 */
+select sigla, 
+sum(if(descricao = 'Bola na Trave',1,0)) 'Bola na Trave',
+sum(if(descricao = 'Pênalti Perdido',1,0)) 'Bola na Trave',
+sum(if(descricao = 'Gol anulado (Var)',1,0)) 'Bola na Trave'
+from evento as e
+inner join jogador as j on t.id_time = j.id_time
+inner join time as t on e.id_jogador = j.id_jogador
+group by sigla;
 
 -- 09. Deseja-se saber a quantidade de jogador por faixa etária
 /*exemplo:
@@ -167,3 +194,11 @@ Maracanã										77
 Neo Química Arena								48
 Estádio Alfredo Jaconi							48
 */
+select 
+    nome,
+    sum(gol_mandante + gol_visitante) as quantidade
+from
+	partida as p
+    inner join estadio as e on p.id_estadio = e.id_estadio
+group by
+   nome;
