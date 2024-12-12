@@ -184,6 +184,19 @@ Entre 20 e29	405
 Entre 10 e19	30
 Entre 40 e49	4
 */
+select
+    case
+        when timestampdiff(year, dt_nascimento, curdate()) between 30 and 39 then 'Entre 30-39 anos'
+        when timestampdiff(year, dt_nascimento, curdate()) between 20 and 29 then 'Entre 20-29 anos'
+        when timestampdiff(year, dt_nascimento, curdate()) between 10 and 19 then 'Entre 10-19 anos'
+        when timestampdiff(year, dt_nascimento, curdate()) between 40 and 49 then 'Entre 40-49 anos'
+        else 'Idade Indefinida'
+    end as faixa_etaria,
+    count(*) as quantidade
+from
+    jogador
+group by
+    faixa_etaria;
 
 -- 10. Deseja-se saber o total de gols em cada estádio
 /*exemplo:
