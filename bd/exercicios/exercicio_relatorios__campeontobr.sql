@@ -134,8 +134,11 @@ quinta	29
 segunda	11
 sexta	8
 */
-select * from partida
-;
+set lc_time_names=pt_BR;
+select dayname(horario) dia, count(*) as quantidade
+from partida
+group by 1;
+
 -- 07. Desejase saber a quantidade total de cada evento 
 -- e quantos aconteceram ate os 45min e depois dos 45min
 /*exemplo:
@@ -186,10 +189,10 @@ Entre 40 e49	4
 */
 select
     case
-        when timestampdiff(year, dt_nascimento, curdate()) between 30 and 39 then 'Entre 30-39 anos'
-        when timestampdiff(year, dt_nascimento, curdate()) between 20 and 29 then 'Entre 20-29 anos'
-        when timestampdiff(year, dt_nascimento, curdate()) between 10 and 19 then 'Entre 10-19 anos'
-        when timestampdiff(year, dt_nascimento, curdate()) between 40 and 49 then 'Entre 40-49 anos'
+		when timestampdiff(year, dt_nascimento, curdate()) between 40 and 49 then 'Entre 40 e 49'
+        when timestampdiff(year, dt_nascimento, curdate()) between 30 and 39 then 'Entre 30 e 39'
+        when timestampdiff(year, dt_nascimento, curdate()) between 20 and 29 then 'Entre 20 e 29'
+        when timestampdiff(year, dt_nascimento, curdate()) between 10 and 19 then 'Entre 10 e 19'
         else 'Idade Indefinida'
     end as faixa_etaria,
     count(*) as quantidade
