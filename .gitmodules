@@ -1,3 +1,6 @@
 [submodule "churrasquinho_maranhao/churrrasquinho_maranhao_app"]
 	path = churrasquinho_maranhao/churrrasquinho_maranhao_app
 	url = https://github.com/MarksAurelio/churrrasquinho_maranhao_app.git
+[submodule "pythonapp"]
+	path = pythonapp
+	url = https://github.com/MarksAurelio/pythonapp.git
